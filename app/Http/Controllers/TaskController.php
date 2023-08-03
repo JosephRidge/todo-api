@@ -11,9 +11,8 @@ class TaskController extends Controller
     function createNewTask(Request $request){
 /**
  * Validate Input
- * using validate()
- * to ensure the values are al provided
- */
+ * uensure all fileds are filled
+ * */
     $request->validate([
         'title'=>'required',
         'description'=>'required',
@@ -25,8 +24,26 @@ class TaskController extends Controller
      * Create Task using the Task Model Class
      */
     $task = Task::create([
-        
+        'title'=>$request->title,
+        'description'=>$request->description,
+        'deadline'=>$request->deadline,
+        'isComplete'=>$request->isComplete        
     ]);
+    // retreive from the db
+    $task = Task::find($task->id);
+// check if it exists
+    if($task){
+        return response([
+            'message'=>'success',
+            'task'=> $task
+        ]);
+    }else{
+        return response([
+            'message'=>'success',
+            'task'=> 'not created'
+        ]);
+    }
+    // response to user
 
 
     }
