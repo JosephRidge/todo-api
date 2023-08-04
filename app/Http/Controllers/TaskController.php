@@ -43,8 +43,48 @@ class TaskController extends Controller
             'task'=> 'not created'
         ]);
     }
-    // response to user
+    }
 
+    // read all tasks
+    function readAllTasks(){
+        /// no need of validation 
+         $tasks = Task::all();
+         // check whether the tasks exists or not
+         if($tasks){
+            return response([
+                'message'=>'Success',
+                'tasks'=> $tasks
+            ]);
+         }
+         else{
+            return response([
+                'message'=>'success',
+                'tasks'=>'no tasks available'
+            ]);
+         }
+    }
 
+    // read only one task
+    function readOneTask(Request $request){
+        // validation
+        $request->validate([
+            'id'=>'required'
+        ]);
+
+        // retreive the target task
+        $task = Task::find($request->id);
+
+        // return a response , might be empty
+        if($task){
+            return response([
+                'message'=>'success',
+                'task'=> $task
+            ]);
+        }else{
+            return response([
+                'message'=>'success',
+                'task'=>'task does not exist'
+            ]);
+        }
     }
 }
