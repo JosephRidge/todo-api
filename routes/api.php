@@ -26,3 +26,6 @@ Route::post('/createTask',[TaskController::class,'createNewTask']);
 // create get all tasks endpoint
 Route::get('/getAllTasks',[TaskController::class,'readAllTasks']);
 Route::get('/getOneTasks',[TaskController::class,'readOneTask']);
+
+// update a particular record
+Route::put('/updateTask',[TaskController::class,'updateTask']);
